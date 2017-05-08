@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75" prefWidth="510" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+    <children>
+        <Button fx:id="createButton" layoutX="423.0" layoutY="31.0" mnemonicParsing="false" onMouseClicked="#createClicked" text="Create" />
+        <Button fx:id="browseButton" layoutX="362.0" layoutY="31.0" mnemonicParsing="false" onMouseClicked="#browseClicked" text="Browse" />
+        <Button fx:id="helpButton" layoutX="480.0" layoutY="31.0" mnemonicParsing="false"  onMouseClicked="#helpClicked" text="?" />
+        <TextField fx:id="browseText" layoutX="26.0" layoutY="31.0" prefHeight="25.0" prefWidth="328.0" text="Browse the nessus file..." />
+
+    </children>
+</AnchorPane>
