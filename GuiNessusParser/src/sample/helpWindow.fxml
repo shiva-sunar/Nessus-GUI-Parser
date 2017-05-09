@@ -11,8 +11,8 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-       <Label layoutX="40.0" layoutY="90.0" prefHeight="70" prefWidth="620.0" text="GUI Parser is a FREE &amp; OPEN-SOURCE tool to make Vulnerability Scan report from &quot;.nessus&quot; export file of Nessus Vulnerability Scanner. It is written in Java using JFX for GUI and JAXB for XML Parsing. It source code is available at https://www.githu" wrapText="true" />
-       <Label layoutX="40.0" layoutY="180.0" prefHeight="70" prefWidth="620.0" text="Label" />
+       <Label layoutX="40.0" layoutY="90.0" prefHeight="70" prefWidth="620.0" text="GUI Parser is a FREE &amp; OPEN-SOURCE tool to make Vulnerability Scan report from &quot;.nessus&quot; export file of Nessus Vulnerability Scanner. It is written in Java using JFX for GUI and JAXB for XML Parsing. It's source code is available at https://github.com/thinkshiva7/Nessus-GUI-Parser/ " wrapText="true" />
+       <Label layoutX="40.0" layoutY="180.0" prefHeight="70" prefWidth="620.0" />
        <Label layoutX="40.0" layoutY="270.0" prefHeight="70" prefWidth="620.0" text="Label" />
    </children>
 </AnchorPane>

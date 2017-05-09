@@ -12,7 +12,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("MainWindow.fxml"));
-        primaryStage.setTitle("GUI.Parser 2.0.0 (TESTING!!! 2017.05.08)");
+        primaryStage.setTitle("GUI.Parser 2.0.1 (TESTING!!! 2017.05.09)");
         primaryStage.setScene(new Scene(root));
         primaryStage.setResizable(false);
         primaryStage.getIcons().add(new Image(Main.class.getResourceAsStream("nessus.png")));

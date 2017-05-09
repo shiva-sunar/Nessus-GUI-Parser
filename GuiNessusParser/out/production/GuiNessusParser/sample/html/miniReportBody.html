@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@@@ReportTitle</title>
+</head>
+<body>
+<style type="text/css">
+		.detable  {border-collapse:collapse;border-spacing:0;border-color:#999;font-family:Verdana,sans-serif;font-size:13px;}
+		.detable td{				padding:4px 20px;				border-style:solid;				border-width:1px;				overflow:hidden;				word-break:normal;				border-color:#999;				color:#444;				background-color:#F7FDFA;}
+		.detable th{font-weight:normal;				padding:4px 20px;				border-style:solid;				border-width:1px;				overflow:hidden;				word-break:normal;				border-color:#999;				color:#000;				background-color:#fff;}
+		.detable .colorfuls{				font-weight:bold;				text-align: center;				vertical-align:center;}
+		.detable .tableHeader{				font-weight:bold;				background-color:#b3d9ff;				vertical-align:top;				text-align: center;}
+		.detable .remarks{				vertical-align:top;				text-align: left;}
+		.detable .vulName{				text-align: left;				vertical-align:top;				font-weight: bold;}
+
+
+</style>
+<table class="detable">
+    <tr>
+        <th class="tableHeader">Vulnerability</th>
+        <th class="tableHeader">Criticality</th>
+        <th class="tableHeader">Impact on Business</th>
+        <th class="tableHeader">Remarks</th>
+    </tr>
+
+    @@@MiniReportRows
+
+</table>
+</body>
+</html>

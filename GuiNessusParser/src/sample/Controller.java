@@ -54,7 +54,7 @@ public class Controller {
         }
     }
     public void helpClicked(MouseEvent mouseEvent) throws Exception {
-        System.out.println("Help Clicked");
+        System.out.println("Help Clicked.");
         Parent root = FXMLLoader.load(getClass().getResource("helpWindow.fxml"));
         Stage helpStage=new Stage();
         helpStage.setTitle("About GUI Parser");
