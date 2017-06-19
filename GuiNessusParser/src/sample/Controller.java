@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
@@ -29,9 +30,18 @@ public class Controller {
     private Button createButton;
     @FXML
     private Button helpButton;
+    @FXML
+    private CheckBox ipCheck, macCheck, netBiosCheck, naCheck;
     private List<File> files = null;
 
     public Controller() {
+    }
+
+    public void checkBoxClicked() {
+        Vulnerability.showIP = ipCheck.isSelected();
+        Vulnerability.showMAC = macCheck.isSelected();
+        Vulnerability.showNetBios = netBiosCheck.isSelected();
+        Vulnerability.showNA = naCheck.isSelected();
     }
 
     public void browseClicked(MouseEvent mouseEvent) {
@@ -45,18 +55,20 @@ public class Controller {
     }
 
     public void createClicked(MouseEvent mouseEvent) {
-            new Thread(()->makeReports()).start();
+        new Thread(() -> makeReports()).start();
     }
-    private void makeReports(){
+
+    private void makeReports() {
         if (files != null) {
             for (File file : files)
                 makeReportForAFile(file);
         }
     }
+
     public void helpClicked(MouseEvent mouseEvent) throws Exception {
         System.out.println("Help Clicked.");
         Parent root = FXMLLoader.load(getClass().getResource("helpWindow.fxml"));
-        Stage helpStage=new Stage();
+        Stage helpStage = new Stage();
         helpStage.setTitle("About GUI Parser");
         helpStage.setScene(new Scene(root));
         helpStage.setResizable(false);
@@ -100,7 +112,7 @@ public class Controller {
 //            System.out.println("Report File Writing Started!!!");
             try {
                 String justFileName = file.getName().substring(0, file.getName().lastIndexOf("."));
-                String folder = file.getParent() +"\\"+ justFileName;
+                String folder = file.getParent() + "\\" + justFileName;
                 System.out.println(folder);
                 Files.createDirectories(Paths.get(folder));
                 PrintWriter mout = new PrintWriter(new FileOutputStream(folder + "\\" + justFileName + "MiniReport.html"));
