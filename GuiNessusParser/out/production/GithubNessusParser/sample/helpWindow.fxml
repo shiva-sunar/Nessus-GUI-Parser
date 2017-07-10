@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="317.0" prefWidth="684.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+    <children>
+        <Label contentDisplay="CENTER" layoutX="235.0" layoutY="14.0" prefHeight="57.0" prefWidth="230.0" text="About GUI Parser" textAlignment="CENTER">
+            <font>
+                <Font name="System Bold" size="24.0" />
+            </font>
+        </Label>
+        <Label layoutX="40.0" layoutY="90.0" prefHeight="70" prefWidth="620.0" text="GUI Parser is a FREE &amp; OPEN-SOURCE tool to make Vulnerability Scan report from &quot;.nessus&quot; export file of Nessus Vulnerability Scanner. It is written in Java using JFX for GUI and JAXB for XML Parsing. It's source code is available at https://github.com/thinkshiva7/Nessus-GUI-Parser/ " wrapText="true" />
+        <Label layoutX="40.0" layoutY="191.0" prefHeight="19.0" prefWidth="620.0" text="What to use as Identifier of the System?" />
+        <Label layoutX="465.0" layoutY="29.0" prefHeight="27.0" prefWidth="214.0" text="Programmed by Shiva Sunar">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+        <CheckBox fx:id="ipCheck" layoutX="40.0" layoutY="217.0" mnemonicParsing="false" onAction="#checkBoxClicked" selected="true" text="IP" />
+        <CheckBox fx:id="macCheck" layoutX="93.0" layoutY="217.0" mnemonicParsing="false" onAction="#checkBoxClicked" text="MAC" />
+        <CheckBox fx:id="netBiosCheck" layoutX="154.0" layoutY="217.0" mnemonicParsing="false" onAction="#checkBoxClicked" text="NetBIOS" />
+      <CheckBox fx:id="naCheck" layoutX="235.0" layoutY="217.0" mnemonicParsing="false" onAction="#checkBoxClicked" selected="true" text="NA" />
+    </children>
+</AnchorPane>

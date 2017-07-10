@@ -1,20 +1,19 @@
 package sample;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Created by ShiPC on 1/25/2017.
  */
 public class Reporter {
-    private static final String miniReportBody = getFixedStaticString("src/sample/html/miniReportBody.html");
-    private static final String miniTableRow = getFixedStaticString("src/sample/html/miniTableRow.html");
-    private static final String detailReportBody = getFixedStaticString("src/sample/html/detailReportBody.html");
-    private static final String detailTableRow = getFixedStaticString("src/sample/html/detailTableRow.html");
-    private static final String reportByHostBody = getFixedStaticString("src/sample/html/reportByHostBody.html");
-    private static final String reportByHostTable = getFixedStaticString("src/sample/html/reportByHostTable.html");
-    private static final String reportByHostTableVulnerability = getFixedStaticString("src/sample/html/reportByHostTableVulnerability.html");
+    private static final String miniReportBody = getFixedStaticString("html/miniReportBody.html");
+    private static final String miniTableRow = getFixedStaticString("html/miniTableRow.html");
+    private static final String detailReportBody = getFixedStaticString("html/detailReportBody.html");
+    private static final String detailTableRow = getFixedStaticString("html/detailTableRow.html");
+    private static final String reportByHostBody = getFixedStaticString("html/reportByHostBody.html");
+    private static final String reportByHostTable = getFixedStaticString("html/reportByHostTable.html");
+    private static final String reportByHostTableVulnerability = getFixedStaticString("html/reportByHostTableVulnerability.html");
 
     public static String makeMiniReport(List<Vulnerability> vulnerabilityList) {
         return makeMiniReport(vulnerabilityList, "");
@@ -105,9 +104,11 @@ public class Reporter {
         if (v.riskFactor.equals("Low")) return "#00B050";
         return "@@@NoColor";
     }
+
     public static String getFixedStaticString(String path) {
         try {
-            return new String(Files.readAllBytes(Paths.get(path)));
+            String text = new Scanner(Reporter.class.getResourceAsStream(path), "UTF-8").useDelimiter("\\A").next();
+            return text;
         } catch (Exception e) {
             e.printStackTrace();
         }
