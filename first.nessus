@@ -1,0 +1,56 @@
+<?xml version="1.0" ?>
+<NessusClientData_v2>
+<Policy><policyName>Policy Name</policyName></Policy>
+<Report name="SampleReportName" xmlns:cm="http://www.nessus.org/cm">
+
+
+	<ReportHost name="1.1.1.1">
+		<HostProperties>
+			<tag name="policy-used">Advanced Scan</tag>
+			<tag name="operating-system">SomeOSName</tag>
+			<tag name="mac-address">aa:bb:cc:dd:ee:ff</tag>
+		</HostProperties>
+
+		<ReportItem port="1234" svc_name="general" protocol="tcp" severity="5" pluginID="1234" pluginName="pluginName111" pluginFamily="SomePluginFamily">
+			<description>This is detail descriptions of pluginName111</description>
+			<plugin_name>Ethernet Card Manufacturer Detection</plugin_name>
+			<solution>This is some Solution.</solution>
+			<synopsis>This is Synopsis.</synopsis>
+		</ReportItem>
+		<ReportItem port="1234" svc_name="general" protocol="tcp" severity="5" pluginID="1234" pluginName="pluginName222" pluginFamily="SomePluginFamily">
+			<description>This is detail descriptions of pluginName111</description>
+			<plugin_name>Ethernet Card Manufacturer Detection</plugin_name>
+			<solution>This is some Solution.</solution>
+			<synopsis>This is Synopsis.</synopsis>
+		</ReportItem>
+
+	</ReportHost>
+
+
+
+
+	<ReportHost name="2.2.2.2">
+		<HostProperties>
+			<tag name="policy-used">Advanced Scan</tag>
+			<tag name="operating-system">SomeOSName</tag>
+			<tag name="mac-address">aa:bb:cc:dd:ee:ff</tag>
+		</HostProperties>
+
+		<ReportItem port="1234" svc_name="general" protocol="tcp" severity="5" pluginID="1234" pluginName="pluginName111" pluginFamily="SomePluginFamily">
+			<description>This is detail descriptions of pluginName111</description>
+			<plugin_name>Ethernet Card Manufacturer Detection</plugin_name>
+			<solution>This is some Solution.</solution>
+			<synopsis>This is Synopsis.</synopsis>
+		</ReportItem>
+		<ReportItem port="1234" svc_name="general" protocol="tcp" severity="5" pluginID="1234" pluginName="pluginName222" pluginFamily="SomePluginFamily">
+			<description>This is detail descriptions of pluginName111</description>
+			<plugin_name>Ethernet Card Manufacturer Detection</plugin_name>
+			<solution>This is some Solution.</solution>
+			<synopsis>This is Synopsis.</synopsis>
+		</ReportItem>
+
+	</ReportHost>
+
+
+</Report>
+</NessusClientData_v2>
