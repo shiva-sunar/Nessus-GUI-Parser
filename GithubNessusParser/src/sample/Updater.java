@@ -15,41 +15,67 @@ import java.util.stream.Collectors;
  * Created by ShiPC on 7/17/2017.
  */
 public class Updater {
-    public static boolean isUpdateChecked=false;
+    private static boolean isUpdateChecked = false;
     private static String latestVersion="";
 
     public static boolean updateApplication(String version) {
-        if (isUpdateAvailable(version)) {
-            String jarURL = "https://github.com/thinkshiva7/Nessus-GUI-Parser/raw/master/Nessus.Parser.v"+latestVersion+".jar";
-            String pwd = Paths.get(".").toAbsolutePath().normalize().toString();
-            print("Downloading Update!!!");
-            if(download(jarURL, pwd)) {
-                print("Update Downloaded in current folder " + pwd + " !!!");
-                return true;
-            }
+        if (!isUpdateChecked) {
+            latestVersion = getLatestVersion();
+            if (!latestVersion.equals(version)) {
+                if (!isUpdateAlreadyDownloaded()) {
+                    String jarURL = "https://github.com/thinkshiva7/Nessus-GUI-Parser/raw/master/Nessus.Parser.v" + latestVersion + ".jar";
+                    String pwd = Paths.get(".").toAbsolutePath().normalize().toString();
+                    print("Downloading Update!!!");
+                    if (download(jarURL, pwd)) {
+                        print("Update Downloaded in current folder " + pwd + " !!!");
+                        return true;
+                    }
+                } else print("Please Use the Lateset Version of Application which is already in current Folder...");
+            } else print("Running Application is Already Latest Version...");
         }
         return false;
     }
 
-    private static boolean isUpdateAvailable(String version) {
+    private static boolean isUpdateAlreadyDownloaded() {
+//        check is pwd contains file named Nessus.Parser.v(Latest).jar
+
+        return false;
+    }
+
+//    private static boolean isUpdateAvailable(String version) {
+//        try {
+//            URL u = new URL("https://raw.githubusercontent.com/thinkshiva7/Nessus-GUI-Parser/master/Older%20Versions/latestVersion.txt");
+//            print("Checking Updates!!!");
+//            InputStream in = u.openStream();
+//            String result = new BufferedReader(new InputStreamReader(in))
+//                    .lines().collect(Collectors.joining("\n"));
+//            if (!result.equals(version)) {
+//                print("Update is Available!!!\nNessus.Report.Generator.v"+result);
+//                latestVersion=result.trim();
+//                return true;
+//            }
+//        } catch (Exception e) {
+//            print("Some Error Occurred  While Checking Update");
+//            e.printStackTrace();
+//            return false;
+//        }
+//        print("Application is Latest, Update Not Available!!!");
+//        return false;
+//    }
+
+    private static String getLatestVersion() {
         try {
             URL u = new URL("https://raw.githubusercontent.com/thinkshiva7/Nessus-GUI-Parser/master/Older%20Versions/latestVersion.txt");
             print("Checking Updates!!!");
             InputStream in = u.openStream();
             String result = new BufferedReader(new InputStreamReader(in))
                     .lines().collect(Collectors.joining("\n"));
-            if (!result.equals(version)) {
-                print("Update is Available!!!\nNessus.Report.Generator.v"+result);
-                latestVersion=result.trim();
-                return true;
-            }
+            return result;
         } catch (Exception e) {
             print("Some Error Occurred  While Checking Update");
             e.printStackTrace();
-            return false;
+            return "Error...";
         }
-        print("Application is Latest, Update Not Available!!!");
-        return false;
     }
 
     private static boolean download(String sourceURL, String targetDirectory) {
@@ -68,7 +94,7 @@ public class Updater {
         return false;
     }
 
-    static void print(Object a) {
+    private static void print(Object a) {
         System.out.println(a);
     }
 }

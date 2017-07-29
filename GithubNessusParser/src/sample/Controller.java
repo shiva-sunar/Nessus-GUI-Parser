@@ -38,10 +38,7 @@ public class Controller {
     private List<File> files = null;
 
     public Controller() {
-        if (!Updater.isUpdateChecked) {
             new Thread(() -> Updater.updateApplication(Main.version)).start();
-            Updater.isUpdateChecked = true;
-        }
     }
 
     public void checkBoxClicked() {
