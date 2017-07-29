@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="251.0" prefWidth="684.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+    <children>
+        <Label contentDisplay="CENTER" layoutX="235.0" layoutY="14.0" prefHeight="27.0" prefWidth="201.0" text="About GUI Parser" textAlignment="CENTER">
+            <font>
+                <Font name="System Bold" size="24.0" />
+            </font>
+        </Label>
+        <Label layoutX="40.0" layoutY="90.0" prefHeight="70" prefWidth="620.0" text="GUI Parser is a FREE &amp; OPEN-SOURCE tool to merge &quot;.nessus&quot; files &amp; make Vulnerability Scan report from &quot;.nessus&quot; export file of Nessus Vulnerability Scanner. It's source code is openly available at GitHub. &#10;For Verbose Mode Use: java -jar &lt;fileName&gt;.jar" wrapText="true" />
+        <Label layoutX="40.0" layoutY="191.0" prefHeight="19.0" prefWidth="620.0" text="What to use to identify System/Device?" />
+        <Label layoutX="229.0" layoutY="49.0" prefHeight="27.0" prefWidth="214.0" text="Programmed by Shiva Sunar">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+        <CheckBox fx:id="ipCheck" layoutX="40.0" layoutY="217.0" mnemonicParsing="false" onAction="#checkBoxClicked" selected="true" text="IP" />
+        <CheckBox fx:id="macCheck" layoutX="93.0" layoutY="217.0" mnemonicParsing="false" onAction="#checkBoxClicked" text="MAC" />
+        <CheckBox fx:id="netBiosCheck" layoutX="154.0" layoutY="217.0" mnemonicParsing="false" onAction="#checkBoxClicked" text="NetBIOS" />
+      <CheckBox fx:id="naCheck" layoutX="235.0" layoutY="217.0" mnemonicParsing="false" onAction="#checkBoxClicked" selected="true" text="NA" />
+      <Hyperlink layoutX="614.0" layoutY="14.0" onAction="#gotoGitHub" text="GitHub">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Hyperlink>
+        <Hyperlink layoutX="614.0" layoutY="26.0" text="LinkedIn">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Hyperlink>
+      <Label layoutX="40.0" layoutY="160.0" prefHeight="27.0" prefWidth="74.0" text="Settings">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+    </children>
+</AnchorPane>
