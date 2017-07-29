@@ -1,1 +1,2 @@
 GuiParserV.1.1.jar
+Nessus.Parser.v2.3.jar
