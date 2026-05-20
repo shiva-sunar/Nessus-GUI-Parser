@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nessus Nexus | Modern Scan Parser & Merger</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- HEADER -->
+        <header class="app-header">
+            <div class="logo-area">
+                <svg class="shield-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="shield-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#0052d4" />
+                            <stop offset="50%" stop-color="#4364f7" />
+                            <stop offset="100%" stop-color="#6fb1fc" />
+                        </linearGradient>
+                        <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                            <feGaussianBlur stdDeviation="8" result="blur" />
+                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                        </filter>
+                    </defs>
+                    <path class="shield-back" d="M50 5 L85 20 V50 C85 75 50 95 50 95 C50 95 15 75 15 50 V20 L50 5 Z" fill="url(#shield-grad)" filter="url(#glow)" />
+                    <path class="shield-inner" d="M50 12 L78 24 V48 C78 68 50 85 50 85 C50 85 22 68 22 48 V24 L50 12 Z" fill="#0d1117" opacity="0.85" />
+                    <path class="shield-core" d="M50 25 L65 32 V45 C65 57 50 68 50 68 C50 68 35 57 35 45 V32 L50 25 Z" fill="url(#shield-grad)" />
+                    <line x1="50" y1="25" x2="50" y2="68" stroke="#ffffff" stroke-width="2" opacity="0.3" />
+                </svg>
+                <div class="title-meta">
+                    <h1>Nessus <span class="accent-text">Nexus</span></h1>
+                    <p class="subtitle">High-Fidelity Client-Side Scanner Parser & Report Engine</p>
+                </div>
+            </div>
+            <div class="header-badges">
+                <span class="badge version-badge">v3.0.0</span>
+                <span class="badge privacy-badge"><span class="pulse-dot"></span> 100% Client-Side / Secure</span>
+            </div>
+        </header>
+
+        <!-- MAIN LAYOUT -->
+        <main class="main-layout">
+            
+            <!-- LEFT COLUMN: CONTROLS & IMPORT -->
+            <section class="sidebar">
+                <!-- FILE IMPORT ZONE -->
+                <div class="card import-card">
+                    <div class="card-header">
+                        <div class="header-title-group">
+                            <span class="icon">📥</span>
+                            <h2>Import Scans</h2>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="drop-zone" id="drop-zone">
+                            <input type="file" id="file-input" multiple accept=".nessus" style="display: none;">
+                            <div class="drop-zone-content">
+                                <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+                                </svg>
+                                <h3>Drag & Drop Files Here</h3>
+                                <p>or click to browse from computer</p>
+                                <span class="file-format-lbl">Supports multiple .nessus XML files</span>
+                            </div>
+                        </div>
+                        <div class="loaded-files-container" id="loaded-files-container" style="display: none;">
+                            <h4>Loaded Files (<span id="file-count">0</span>)</h4>
+                            <ul class="file-list" id="file-list"></ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONFIGURATION PANEL -->
+                <div class="card config-card">
+                    <div class="card-header">
+                        <div class="header-title-group">
+                            <span class="icon">⚙️</span>
+                            <h2>Parser Settings</h2>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <!-- Host Identifiers checkboxes -->
+                        <div class="settings-group">
+                            <label class="group-label">Device Identifiers</label>
+                            <p class="group-desc">Select values used to identify scanned hosts:</p>
+                            <div class="switch-grid">
+                                <label class="switch-item">
+                                    <input type="checkbox" id="chk-ip" checked>
+                                    <span class="control-label">IP Address</span>
+                                </label>
+                                <label class="switch-item">
+                                    <input type="checkbox" id="chk-mac">
+                                    <span class="control-label">MAC Address</span>
+                                </label>
+                                <label class="switch-item">
+                                    <input type="checkbox" id="chk-netbios">
+                                    <span class="control-label">NetBIOS Name</span>
+                                </label>
+                                <label class="switch-item">
+                                    <input type="checkbox" id="chk-na" checked>
+                                    <span class="control-label">Show "N/A" Fields</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Minimum CVSS Score threshold slider -->
+                        <div class="settings-group">
+                            <div class="slider-header">
+                                <label class="group-label">Min CVSS Base Score</label>
+                                <span class="slider-val" id="cvss-val">0.0</span>
+                            </div>
+                            <input type="range" id="cvss-threshold" min="0.0" max="10.0" step="0.1" value="0.0" class="slider-control">
+                            <p class="group-desc">Exclude vulnerabilities with a base score below this threshold.</p>
+                        </div>
+
+                        <!-- Excluded Vulnerabilities Tag manager -->
+                        <div class="settings-group">
+                            <label class="group-label">Ignore / Exclude List</label>
+                            <p class="group-desc">Vulnerabilities with these exact titles will be filtered out:</p>
+                            <div class="ignored-input-row">
+                                <input type="text" id="ignored-input" placeholder="Enter vulnerability title...">
+                                <button type="button" class="btn btn-secondary" id="btn-add-ignored">Add</button>
+                            </div>
+                            <div class="ignored-tags-wrapper" id="ignored-tags-wrapper">
+                                <!-- Tags dynamically inserted here -->
+                            </div>
+                            <button type="button" class="btn btn-text-only" id="btn-reset-ignored">Reset to Defaults</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- RIGHT COLUMN: DASHBOARD & INTERACTIVE WORKSPACE -->
+            <section class="workspace">
+                <!-- TABS CONTAINER -->
+                <div class="workspace-tabs">
+                    <button class="tab-btn active" data-tab="dashboard-view">📊 Dashboard</button>
+                    <button class="tab-btn disabled" data-tab="preview-mini" id="tab-mini">📋 Mini Report</button>
+                    <button class="tab-btn disabled" data-tab="preview-detailed" id="tab-detailed">🔍 Detailed Report</button>
+                    <button class="tab-btn disabled" data-tab="preview-host" id="tab-host">🖥️ Report by Host</button>
+                </div>
+
+                <!-- TAB PANES -->
+                <div class="tab-content">
+                    
+                    <!-- 1. DASHBOARD VIEW -->
+                    <div class="tab-pane active" id="dashboard-view">
+                        <!-- EMPTY STATE -->
+                        <div class="empty-state" id="empty-state">
+                            <div class="empty-icon-shield">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                </svg>
+                            </div>
+                            <h2>Waiting for Scan Uploads</h2>
+                            <p>Drag and drop your `.nessus` scan files in the import panel on the left to begin analysis. Parsing runs entirely locally inside your browser cache.</p>
+                        </div>
+
+                        <!-- RESULTS DASHBOARD (Hidden until data parsed) -->
+                        <div class="dashboard-active" id="dashboard-active" style="display: none;">
+                            
+                            <!-- SUMMARY STATS CARD GRID -->
+                            <div class="stats-grid">
+                                <div class="stat-card total-hosts-card">
+                                    <span class="stat-icon">🖥️</span>
+                                    <div class="stat-meta">
+                                        <span class="stat-lbl">Hosts Scanned</span>
+                                        <span class="stat-num" id="stat-hosts">0</span>
+                                    </div>
+                                </div>
+                                <div class="stat-card total-vulns-card">
+                                    <span class="stat-icon">⚠️</span>
+                                    <div class="stat-meta">
+                                        <span class="stat-lbl">Total Vulnerabilities</span>
+                                        <span class="stat-num" id="stat-vulns">0</span>
+                                    </div>
+                                </div>
+                                <div class="stat-card merged-indicator-card">
+                                    <span class="stat-icon">🔗</span>
+                                    <div class="stat-meta">
+                                        <span class="stat-lbl">Active Scans Merged</span>
+                                        <span class="stat-num" id="stat-scans">0</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- SEVERITY QUICK-GLANCE BADGES -->
+                            <div class="severity-bars-card card">
+                                <div class="card-header">
+                                    <h3>Vulnerability Severity Breakdown</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="severity-breakdown-wrapper">
+                                        <div class="sev-badge-card" style="--sev-color: var(--color-critical);">
+                                            <span class="sev-name">Critical</span>
+                                            <span class="sev-count" id="count-critical">0</span>
+                                            <span class="sev-sub">CVSS 9.0 - 10.0</span>
+                                        </div>
+                                        <div class="sev-badge-card" style="--sev-color: var(--color-high);">
+                                            <span class="sev-name">High</span>
+                                            <span class="sev-count" id="count-high">0</span>
+                                            <span class="sev-sub">CVSS 7.0 - 8.9</span>
+                                        </div>
+                                        <div class="sev-badge-card" style="--sev-color: var(--color-medium);">
+                                            <span class="sev-name">Medium</span>
+                                            <span class="sev-count" id="count-medium">0</span>
+                                            <span class="sev-sub">CVSS 4.0 - 6.9</span>
+                                        </div>
+                                        <div class="sev-badge-card" style="--sev-color: var(--color-low);">
+                                            <span class="sev-name">Low</span>
+                                            <span class="sev-count" id="count-low">0</span>
+                                            <span class="sev-sub">CVSS 0.1 - 3.9</span>
+                                        </div>
+                                    </div>
+                                    <div class="visual-progress-track">
+                                        <div class="progress-segment" id="bar-critical" style="background-color: var(--color-critical); width: 0%;"></div>
+                                        <div class="progress-segment" id="bar-high" style="background-color: var(--color-high); width: 0%;"></div>
+                                        <div class="progress-segment" id="bar-medium" style="background-color: var(--color-medium); width: 0%;"></div>
+                                        <div class="progress-segment" id="bar-low" style="background-color: var(--color-low); width: 0%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ACTION CENTER (MERGING & EXPORT BUTTONS) -->
+                            <div class="action-bar card">
+                                <div class="card-header">
+                                    <h3>Execution & Reports Exporter</h3>
+                                </div>
+                                <div class="card-body action-buttons-row">
+                                    <div class="report-dl-actions">
+                                        <button class="btn btn-primary" id="btn-dl-mini">
+                                            📥 Download Mini Report
+                                        </button>
+                                        <button class="btn btn-primary" id="btn-dl-detailed">
+                                            📥 Download Detailed Report
+                                        </button>
+                                        <button class="btn btn-primary" id="btn-dl-host">
+                                            📥 Download Report by Host
+                                        </button>
+                                    </div>
+                                    <div class="divider-v"></div>
+                                    <div class="scan-merge-actions">
+                                        <button class="btn btn-success" id="btn-merge-scans">
+                                            🔗 Merge into Unified Nessus Scan File
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- INTERACTIVE VULNERABILITY EXPLORER -->
+                            <div class="vulnerability-explorer card">
+                                <div class="card-header explorer-header">
+                                    <h3>Vulnerability Explorer</h3>
+                                    <div class="explorer-controls">
+                                        <div class="search-box">
+                                            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                                            </svg>
+                                            <input type="text" id="explorer-search" placeholder="Search vulnerability title, hosts...">
+                                        </div>
+                                        <div class="filter-group">
+                                            <button class="filter-pill active" data-filter="all">All</button>
+                                            <button class="filter-pill" data-filter="Critical">Critical</button>
+                                            <button class="filter-pill" data-filter="High">High</button>
+                                            <button class="filter-pill" data-filter="Medium">Medium</button>
+                                            <button class="filter-pill" data-filter="Low">Low</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body table-overflow">
+                                    <table class="explorer-table" id="explorer-table">
+                                        <thead>
+                                            <tr>
+                                                <th width="40%">Vulnerability Title</th>
+                                                <th width="15%" class="center-align">Severity</th>
+                                                <th width="15%" class="center-align">CVSS Score</th>
+                                                <th width="30%">Affected Systems</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="explorer-table-body">
+                                            <!-- Dynamically generated rows -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- 2. MINI REPORT PREVIEW -->
+                    <div class="tab-pane" id="preview-mini">
+                        <div class="preview-header-bar">
+                            <h3>Live Preview: Mini Report</h3>
+                            <button class="btn btn-primary btn-sm btn-action-dl-tab" data-target="mini">📥 Download Report</button>
+                        </div>
+                        <div class="preview-iframe-wrapper">
+                            <iframe id="iframe-mini" class="preview-iframe"></iframe>
+                        </div>
+                    </div>
+
+                    <!-- 3. DETAILED REPORT PREVIEW -->
+                    <div class="tab-pane" id="preview-detailed">
+                        <div class="preview-header-bar">
+                            <h3>Live Preview: Detailed Report</h3>
+                            <button class="btn btn-primary btn-sm btn-action-dl-tab" data-target="detailed">📥 Download Report</button>
+                        </div>
+                        <div class="preview-iframe-wrapper">
+                            <iframe id="iframe-detailed" class="preview-iframe"></iframe>
+                        </div>
+                    </div>
+
+                    <!-- 4. REPORT BY HOST PREVIEW -->
+                    <div class="tab-pane" id="preview-host">
+                        <div class="preview-header-bar">
+                            <h3>Live Preview: Report By Host</h3>
+                            <button class="btn btn-primary btn-sm btn-action-dl-tab" data-target="host">📥 Download Report</button>
+                        </div>
+                        <div class="preview-iframe-wrapper">
+                            <iframe id="iframe-host" class="preview-iframe"></iframe>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- NOTIFICATION SYSTEM -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
